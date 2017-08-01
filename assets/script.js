@@ -60,26 +60,26 @@ function TicTacToe() {
 let game = new TicTacToe();
 game.init();
 
-for (var i = 0; i < game.input.length; i++) {
+// for (var i = 0; i < game.input.length; i++) {
 	
-	game.input[i].onclick = function() {
+// 	game.input[i].onclick = function() {
 
-		game.userTurn(this);
+// 		game.userTurn(this);
 		
 
-		let checkFullArea = game.checkFullArea();
+// 		let checkFullArea = game.checkFullArea();
 
 
-		if(checkFullArea == true)
-		{
-			game.pcTurn();
-		}else{
-			alert('AREA IS FULL');
-		}
+// 		if(checkFullArea == true)
+// 		{
+// 			game.pcTurn();
+// 		}else{
+// 			alert('AREA IS FULL');
+// 		}
 		
-	}
+// 	}
 
-}
+// }
 
 
 
