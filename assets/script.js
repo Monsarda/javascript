@@ -5,7 +5,6 @@
 function TicTacToe() {
 
 	let collection = document.getElementsByTagName('input');
-	let chip = 'user';
 	this.input = new Array();
 	
 	// --------------- //
@@ -23,7 +22,6 @@ function TicTacToe() {
 		el.parentNode.style.background = '#fafafa';
 		el.checked = true;
 
-		this.pcTurn();
 	}
 
 	this.pcTurn = function() {
@@ -39,6 +37,25 @@ function TicTacToe() {
 
 	}
 
+	this.checkFullArea = function() {
+
+		var counter = 0;
+
+		for (var i = 0; i < this.input.length; i++) {
+			
+			if (this.input[i].checked) {
+				counter++;
+			}
+		}
+		console.log(counter);
+		if (counter >= 8) {
+			return false
+		}else{
+			return true;
+		}
+
+	}
+
 
 }
 
@@ -48,7 +65,18 @@ game.init();
 for (var i = 0; i < game.input.length; i++) {
 	
 	game.input[i].onclick = function() {
+
 		game.userTurn(this);
+
+		let checkFullArea = game.checkFullArea();
+
+		if(checkFullArea == true)
+		{
+			game.pcTurn();
+		}else{
+			alert('AREA IS FULL');
+		}
+		
 	}
 
 }
