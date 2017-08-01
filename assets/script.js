@@ -47,7 +47,6 @@ function TicTacToe() {
 				counter++;
 			}
 		}
-		console.log(counter);
 		if (counter >= 8) {
 			return false
 		}else{
@@ -55,7 +54,6 @@ function TicTacToe() {
 		}
 
 	}
-
 
 }
 
@@ -67,8 +65,10 @@ for (var i = 0; i < game.input.length; i++) {
 	game.input[i].onclick = function() {
 
 		game.userTurn(this);
+		
 
 		let checkFullArea = game.checkFullArea();
+
 
 		if(checkFullArea == true)
 		{
