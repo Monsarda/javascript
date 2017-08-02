@@ -10,21 +10,30 @@ function NoughtsAndCrosses() {
 	let field = new Object();
 
 	while (true) {
-		printMap();
+		let q_1 = prompt('Name', '');
+
+		if(q_1 != 'alex') {
+			alert('Stop');
+			return false;
+		}
+
+		let q_2 = prompt('WName', '');
+
+		if(q_1 != 'alex') {
+			alert('Stop');
+			return false;
+		}
+
 	}
 
+	function initMap(wrapper) {
 
-	
+		let el = document.getElementById(wrapper);
+		el.getElementsByTagName('input');
 
-	function printMap() {
-		console.log('* | 1 | 2 | 3');
-		console.log('1 | * | * | *');
-		console.log('2 | * | * | *');
-		console.log('3 | * | * | *');
 
-		return false;
+
 	}
-
 
 }
 
