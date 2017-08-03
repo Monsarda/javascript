@@ -4,8 +4,8 @@
 
 function NoughtsAndCrosses() {
 
-	const HUMAN_DOT = 'X';
-	const AI_DOT = 'O';
+	this.HUMAN_DOT = 'X';
+	this.AI_DOT = 'O';
 	const EMPTY_DOT = '*';
 	let fields = new Array();
 
@@ -23,14 +23,84 @@ function NoughtsAndCrosses() {
 
 	this.humanTurn = function(field) {
 		if(isEmptyCell(field)){
-			field.setAttribute('value', HUMAN_DOT);
+			field.setAttribute('value', this.HUMAN_DOT);
 		}else {
 			alert('Это поле занято');
 		}
 	}
 
+	this.aiTurn = function() {
+		
+		do{
+				var random = Math.floor(Math.random() * (8 - 0 + 1)) + 0;
+		} while (fields[random].checked);
+
+
+		fields[random].parentNode.style.background = '#ececec';
+		fields[random].checked = true;
+		fields[random].setAttribute('value', this.HUMAN_DOT);
+
+		console.log(fields[random].getAttribute('value'));
+
+	}
+
 	this.checkWin = function(char) {
-		return false;
+
+		if(fields[0].getAttribute('value') == char && 
+		fields[1].getAttribute('value') == char && 
+		fields[2].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
+
+		if(fields[3].getAttribute('value') == char && 
+		fields[4].getAttribute('value') == char && 
+		fields[5].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
+
+		if(fields[6].getAttribute('value') == char && 
+		fields[7].getAttribute('value') == char && 
+		fields[8].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
+
+		if(fields[0].getAttribute('value') == char && 
+		fields[3].getAttribute('value') == char && 
+		fields[6].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
+
+		if(fields[1].getAttribute('value') == char && 
+		fields[4].getAttribute('value') == char && 
+		fields[7].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
+
+		if(fields[2].getAttribute('value') == char && 
+		fields[5].getAttribute('value') == char && 
+		fields[8].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
+
+		if(fields[0].getAttribute('value') == char && 
+		fields[4].getAttribute('value') == char && 
+		fields[8].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
+
+		if(fields[2].getAttribute('value') == char && 
+		fields[4].getAttribute('value') == char && 
+		fields[6].getAttribute('value') == char) {
+			alert('Human Is Win | Reload');
+			window.location.reload();
+		}
 	}
 
 	this.isMapFull = function() {
@@ -67,9 +137,9 @@ for (var i = 0; i < inputs.length; i++) {
 		game.humanTurn(this);
 		game.checkWin(game.HUMAN_DOT);
 		game.isMapFull();
-		// game.aiTurn();
-		// game.checkWin(game.AI_DOT);
-		// game.isMapFull();
+		game.aiTurn();
+		game.checkWin(game.AI_DOT);
+		game.isMapFull();
 
 	}
 }
