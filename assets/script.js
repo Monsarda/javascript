@@ -7,37 +7,73 @@ function NoughtsAndCrosses() {
 	const HUMAN_DOT = 'X';
 	const AI_DOT = 'O';
 	const EMPTY_DOT = '*';
-	let field = new Object();
+	let fields = new Array();
 
-	while (true) {
-		let q_1 = prompt('Name', '');
+	this.initMap = function(wrapper) {
 
-		if(q_1 != 'alex') {
-			alert('Stop');
-			return false;
-		}
+		let el = document.getElementById(wrapper);
+		let inputs = el.getElementsByTagName('input');
 
-		let q_2 = prompt('WName', '');
-
-		if(q_1 != 'alex') {
-			alert('Stop');
-			return false;
+		for (var i = 0; i < inputs.length; i++) {
+			inputs[i].setAttribute('value', EMPTY_DOT);
+			fields.push(inputs[i]);
 		}
 
 	}
 
-	function initMap(wrapper) {
+	this.humanTurn = function(field) {
+		if(isEmptyCell(field)){
+			field.setAttribute('value', HUMAN_DOT);
+		}else {
+			alert('Это поле занято');
+		}
+	}
 
-		let el = document.getElementById(wrapper);
-		el.getElementsByTagName('input');
+	this.checkWin = function(char) {
+		return false;
+	}
 
+	this.isMapFull = function() {
 
+		let empty = fields.length;
+		for (var i = 0; i < fields.length; i++) {
+			if (!isEmptyCell(fields[i])) {
+				empty--;	
+			}	
+		}
 
+		if (empty <= 0 ) {
+			alert('Map is Full | Reload');
+			window.location.reload();
+		}
+		
+	}
+
+	// Private functions
+	function isEmptyCell(field) {
+		return field.getAttribute('value') == EMPTY_DOT;
 	}
 
 }
 
 let game = new NoughtsAndCrosses();
+game.initMap('NoughtsAndCrosses');
+let inputs = document.getElementsByTagName('input');
+
+for (var i = 0; i < inputs.length; i++) {
+
+	inputs[i].onclick = function() {
+
+		game.humanTurn(this);
+		game.checkWin(game.HUMAN_DOT);
+		game.isMapFull();
+		// game.aiTurn();
+		// game.checkWin(game.AI_DOT);
+		// game.isMapFull();
+
+	}
+}
+
 
 
 
