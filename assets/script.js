@@ -8,21 +8,20 @@ function NoughtsAndCrosses() {
 	this.AI_DOT = 'O';
 	const EMPTY_DOT = '*';
 	let fields = new Array();
+	this.inputs = document.getElementsByTagName('input');
 
-	this.initMap = function(wrapper) {
+	this.initMap = function() {
 
-		let el = document.getElementById(wrapper);
-		let inputs = el.getElementsByTagName('input');
-
-		for (var i = 0; i < inputs.length; i++) {
-			inputs[i].setAttribute('value', EMPTY_DOT);
-			fields.push(inputs[i]);
+		for (var i = 0; i < this.inputs.length; i++) {
+			this.inputs[i].setAttribute('value', EMPTY_DOT);
+			fields.push(this.inputs[i]);
 		}
 
 	}
 
 	this.humanTurn = function(field) {
 		if(isEmptyCell(field)){
+			field.parentNode.style.background = '#fafafa';
 			field.setAttribute('value', this.HUMAN_DOT);
 		}else {
 			alert('Это поле занято');
@@ -38,7 +37,7 @@ function NoughtsAndCrosses() {
 
 		fields[random].parentNode.style.background = '#ececec';
 		fields[random].checked = true;
-		fields[random].setAttribute('value', this.HUMAN_DOT);
+		fields[random].setAttribute('value', this.AI_DOT);
 
 		console.log(fields[random].getAttribute('value'));
 
@@ -49,58 +48,52 @@ function NoughtsAndCrosses() {
 		if(fields[0].getAttribute('value') == char && 
 		fields[1].getAttribute('value') == char && 
 		fields[2].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
 
 		if(fields[3].getAttribute('value') == char && 
 		fields[4].getAttribute('value') == char && 
 		fields[5].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
 
 		if(fields[6].getAttribute('value') == char && 
 		fields[7].getAttribute('value') == char && 
 		fields[8].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
 
 		if(fields[0].getAttribute('value') == char && 
 		fields[3].getAttribute('value') == char && 
 		fields[6].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
 
 		if(fields[1].getAttribute('value') == char && 
 		fields[4].getAttribute('value') == char && 
 		fields[7].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
 
 		if(fields[2].getAttribute('value') == char && 
 		fields[5].getAttribute('value') == char && 
 		fields[8].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
 
 		if(fields[0].getAttribute('value') == char && 
 		fields[4].getAttribute('value') == char && 
 		fields[8].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
 
 		if(fields[2].getAttribute('value') == char && 
 		fields[4].getAttribute('value') == char && 
 		fields[6].getAttribute('value') == char) {
-			alert('Human Is Win | Reload');
-			window.location.reload();
+			return true;
 		}
+
+		return false;
 	}
 
 	this.isMapFull = function() {
@@ -113,10 +106,13 @@ function NoughtsAndCrosses() {
 		}
 
 		if (empty <= 0 ) {
-			alert('Map is Full | Reload');
-			window.location.reload();
+			return true;
 		}
 		
+	}
+
+	this.endGame = function() {
+		window.location.reload()
 	}
 
 	// Private functions
@@ -128,18 +124,42 @@ function NoughtsAndCrosses() {
 
 let game = new NoughtsAndCrosses();
 game.initMap('NoughtsAndCrosses');
-let inputs = document.getElementsByTagName('input');
 
-for (var i = 0; i < inputs.length; i++) {
+for (var i = 0; i < game.inputs.length; i++) {
 
-	inputs[i].onclick = function() {
+	game.inputs[i].onclick = function() {
 
-		game.humanTurn(this);
-		game.checkWin(game.HUMAN_DOT);
-		game.isMapFull();
-		game.aiTurn();
-		game.checkWin(game.AI_DOT);
-		game.isMapFull();
+		while(true) {
+			game.humanTurn(this);
+
+			if (game.checkWin(game.HUMAN_DOT)) {
+				alert('Human WINS');
+				game.endGame();
+				break;
+			}
+
+			if (game.isMapFull()) {
+				alert('Map Is Full');
+				game.endGame();
+				break;
+			}
+
+			game.aiTurn();
+
+			if (game.checkWin(game.AI_DOT)) {
+				alert('AI WINS');
+				game.endGame();
+				break;
+			}
+
+			if (game.isMapFull()) {
+				alert('Map Is Full');
+				game.endGame();
+				break;
+			}
+
+			break;
+		}
 
 	}
 }
